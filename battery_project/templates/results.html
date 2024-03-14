@@ -1,0 +1,270 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+    
+    <style>
+       /* Reset CSS */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Body styles */
+body {
+  background-image: linear-gradient( 102.7deg, rgb(193, 206, 207) 8.2%, rgb(195, 219, 223) 19.6%, rgb(165, 198, 202) 36.8%, rgb(152, 219, 213) 73.2%, rgb(192, 236, 198) 90.9% );
+
+  margin: 0;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+
+
+/* Heading styles */
+h1, h2 {
+    margin-bottom: 10px;
+}
+
+/* Table styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+
+    background-color: #f2f2f2;
+}
+
+
+
+/* Image styles */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+/* Battery styles */
+.battery-container {
+    width: 100px; /* Adjust width as needed */
+    height: 200px; /* Adjust height as needed */
+    border: 1px solid #a4f071;
+    border-radius: 20px; 
+    overflow: hidden;
+    border-width: 5px;
+}
+.battery-text {
+    align-items: baseline;
+    text-anchor: middle;
+    dominant-baseline: middle;
+    font-size: 21px;
+    fill: black;
+    font-weight: bold;
+}
+
+/* Thunder icon styles */
+
+.battery {
+    
+    width: 100%;
+    height: 100%;
+    background-color: #ddd;
+    position: relative;
+    display: flex;
+    justify-content: center; /* Align items horizontally to the center */
+    align-items: center; /* Align items vertically to the center */
+}
+
+.text {
+  width: 200px;
+  position: relative;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 900;
+  color: #000000;
+  line-height: 40px;
+  z-index: 2;
+}
+.battery-fill {
+    width: 100%;
+    background-color: #ffa600;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin-top: 20px; /* Adjust margin top as needed */
+    transition: height 0.3s ease-in-out;
+}
+
+.soh-container {
+    
+    margin-top: 20px; /* Adjust margin top as needed */
+    padding: 10px; /* Adjust padding as needed */
+    background-color: #f0f0f0; /* Adjust background color as needed */
+    border: 1px solid #f6f6f6; /* Adjust border as needed */
+    border-radius: 15px; /* Adjust border radius as needed */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+
+}
+
+.image-container {
+    display: flex;
+}
+
+.image-wrapper {
+    flex: 1;
+    margin-right: 20px; /* Adjust margin as needed */
+}
+
+.image-wrapper:last-child {
+    margin-right: 0;
+}
+
+.image-wrapper img {
+    max-width: 100%;
+    height: auto;
+}
+
+.progress-container {
+  width: 200px; /* Adjust container width */
+  height: 30px; /* Adjust container height */
+  background-color: #f2f0cd; /* Background color */
+  border: 1px solid #ffffff; /* Border */
+  border-radius: 5px; /* Rounded corners */
+  position: relative;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #ffa600; /* Default color */
+  border-radius: 5px; /* Rounded corners */
+  text-align: center;
+  color: white;
+  font-size: 14px;
+  line-height: 30px;
+}
+
+.min,
+.max {
+  position: absolute;
+  top: 50%;
+  font-weight: 10000;
+  color: #000000;
+  font-size: 5px;
+  transform: translateY(-50%);
+  font-size: 12px; /* Adjust font size */
+}
+
+.min {
+  left: 0;
+}
+
+.max {
+  right: 0;
+}
+
+
+
+    </style>
+</head>
+<body>
+    <h1>Results</h1>
+
+   
+    <h2>Predicted Parameters</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Parameter</th>
+                <th>Value</th>
+                <th>Explanation</th>
+                <th>Visual Indicator</th>
+            </tr>
+        </thead>{% for name, value,Explanation,min_value,max_value in parameters %}
+        <tbody>
+            
+            
+                
+            <tr>
+                <td>{{ name }}</td>
+                <td>{{ value }}</td>
+                <td>{{ Explanation }}</td>
+                <td>
+                    <div class="progress-container">
+                      <div class="progress-bar" style="width: calc(({{ value }} - {{ min_value }}) / ({{ max_value }} - {{ min_value }}) * 100%);">
+                       <b> <span class="min">{{ min_value }}</span></b>
+                       <b> <span class="max">{{ max_value }}</span></b>
+                      </div>
+                    </div>
+                  </td>
+            </tr>
+            <!-- Repeat for other parameters -->
+        </tbody>{% endfor %}
+    </table>
+    <!-- Ensure you include Font Awesome library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+
+
+<!-- Your HTML code with SVG and Font Awesome icon -->
+<!-- Ensure you include Font Awesome library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<!-- Your HTML code with SVG, Font Awesome icon, and percentage text -->
+<!-- Ensure you include Font Awesome library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<!-- Your HTML code with SVG, Font Awesome icon, and percentage text -->
+<div class="battery-container">
+    <div class="battery">
+        <div class="battery-fill" style="height: {{ soh_percentage }}%;"></div>
+        
+        <svg class="thunder-icon" viewBox="0 0 24 24">
+            <!-- Use the Font Awesome bolt icon class -->
+            <i class="fas fa-bolt" style="position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%); font-size: 40px;"></i>
+
+            <!-- Text element to display percentage value -->
+            <text x="10%" y="90%" class="text">{{ soh_percentage|floatformat }}%</text>
+
+
+            <!-- Text element to display degraded percentage -->
+        </svg>
+    </div>
+</div>
+
+
+
+<div class="soh-container">
+    <h2>State-of-the-Health (SoH)</h2>
+    <p>Degraded cell: <span>{{ degraded_percentage}}</span>%</p><br>
+    <p>The State-of-the-Health (SoH) of the battery cell is: <span>{{ soh_percentage }}</span>%</p><br>
+</div>
+</br>
+<div class="image-container">
+    <div class="image-wrapper">
+        <h2>Equivalent Circuit Model </h2>
+        <img src="{% static 'diag.png' %}" alt="Another Image">
+    </div>
+    <div class="image-wrapper">
+        <h2>Impedance Plot</h2>
+        <img src="{{ plot_file }}" alt="Impedance Plot">
+    </div>
+</div>
+
+</body>
+</html>
